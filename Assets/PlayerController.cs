@@ -68,6 +68,16 @@ public class PlayerController : MonoBehaviour
         return currentHealth > 0;
     }
 
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     private IEnumerator InvincibilityEffect()
     {
         isInvincible = true;
@@ -89,5 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         // 플레이어 사망 처리
         gameObject.SetActive(false);
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        gameManager.EndGame();
     }
 }

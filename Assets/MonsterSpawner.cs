@@ -10,6 +10,7 @@ public class MonsterSpawner : MonoBehaviour
     private Transform playerTransform;
     private PlayerController playerController;
     private BoxCollider2D groundCollider;    // Ground의 경계 확인용
+    private GameManager gameManager;
     private bool isSpawning = false;
 
     void Start()
@@ -21,6 +22,7 @@ public class MonsterSpawner : MonoBehaviour
             playerController = player.GetComponent<PlayerController>();
         }
         groundCollider = GetComponent<BoxCollider2D>();
+        gameManager = FindObjectOfType<GameManager>();
         StartCoroutine(SpawnMonsters());
     }
 
@@ -28,7 +30,10 @@ public class MonsterSpawner : MonoBehaviour
     {
         while (true)
         {
-            if (playerTransform != null && playerController != null && playerController.IsAlive())
+            if (playerTransform != null && 
+                playerController != null && 
+                playerController.IsAlive() &&
+                !gameManager.isVictory)
             {
                 SpawnMonsterInValidPosition();
             }
